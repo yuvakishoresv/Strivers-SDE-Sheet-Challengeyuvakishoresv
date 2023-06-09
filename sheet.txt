@@ -166,3 +166,129 @@ int maximumProfit(vector<int> &prices){
    
 }
 Q7
+#include <bits/stdc++.h>
+
+void rotateMatrix(vector<vector<int>> &mat, int n, int m)
+{
+    int row = 0, col = 0; 
+    int prev, curr; 
+    int lastRow= n;
+    int lastCol= m;
+    while (row < lastRow && col < lastCol) 
+
+    {  
+        if (row + 1 == lastRow || col + 1 == lastCol)  break;   
+
+        prev = mat[row + 1][col]; 
+        
+        for (int i = col; i < lastCol; i++) 
+        { 
+            curr = mat[row][i]; 
+            mat[row][i] = prev; 
+            prev = curr; 
+        } 
+        row++; 
+        
+        for (int i = row; i < lastRow; i++) 
+        { 
+            curr = mat[i][lastCol-1]; 
+            mat[i][lastCol-1] = prev; 
+            prev = curr; 
+        } 
+        lastCol--;   
+        
+        if (row < lastRow) 
+        { 
+            for (int i = lastCol-1; i >= col; i--) 
+            { 
+                curr = mat[lastRow-1][i]; 
+                mat[lastRow-1][i] = prev; 
+                prev = curr; 
+            } 
+        } 
+        lastRow--; 
+        
+        if (col < lastCol) 
+        { 
+            for (int i = lastRow-1; i >= row; i--) 
+            { 
+                curr = mat[i][col]; 
+                mat[i][col] = prev; 
+                prev = curr; 
+            } 
+        } 
+        col++; 
+    } 
+ 
+    
+
+}
+Q8
+#include <bits/stdc++.h> 
+/*
+
+    intervals[i][0] = start point of i'th interval
+    intervals[i][1] = finish point of i'th interval
+
+*/
+
+vector<vector<int>> mergeIntervals(vector<vector<int>> &arr)
+{
+    vector<vector<int>> ans;
+     sort(arr.begin(), arr.end());
+
+    for (int i = 0; i < arr.size(); i++) {
+        
+        if (ans.empty() || arr[i][0] > ans.back()[1]) {
+            ans.push_back(arr[i]);
+        }
+        
+        else {
+            ans.back()[1] = max(ans.back()[1], arr[i][1]);
+        }
+    }
+    return ans;
+}
+Q9
+#include <bits/stdc++.h>
+
+vector<int> ninjaAndSortedArrays(vector<int>& arr1, vector<int>& arr2, int m, int n) {
+	// Write your code here.
+
+	int left=m-1;
+	int right=0;
+	while(left>=0 && right<n)
+	{
+		if(arr2[right]<arr1[left])
+		{
+			swap(arr2[right],arr1[left]);
+			right++;
+			left--;
+         } 
+		else {
+                  break;
+                }
+    }
+	sort(arr1.begin(),arr1.begin()+m);
+	sort(arr2.begin(),arr2.begin()+n);
+	for(int i=m;i<m+n;i++)
+	{
+		arr1[i]=arr2[i-m];
+	}
+	return arr1;
+}
+
+Q10
+#include <bits/stdc++.h>
+
+int findDuplicate(vector<int> &arr, int n){
+	// Write your code here.
+	sort(arr.begin(),arr.end());
+	for(int i=0;i<n-1;i++)
+	{
+		if(arr[i]==arr[i+1])
+		{
+			return (arr[i]);
+		}
+	}
+}
