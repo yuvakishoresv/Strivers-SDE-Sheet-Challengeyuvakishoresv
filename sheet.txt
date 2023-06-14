@@ -292,3 +292,647 @@ int findDuplicate(vector<int> &arr, int n){
 		}
 	}
 }
+
+Q11-24 MISSING
+
+
+
+
+
+
+
+
+
+
+
+
+
+Q25
+#include <bits/stdc++.h>
+
+/****************************************************************
+
+    Following is the class structure of the LinkedListNode class:
+
+    template <typename T>
+    class LinkedListNode
+    {
+    public:
+        T data;
+        LinkedListNode<T> *next;
+        LinkedListNode(T data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+
+*****************************************************************/
+
+LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head) 
+{
+    // Write your code here
+    if(head==NULL || head->next==NULL)return head;
+    LinkedListNode<int> *prev=NULL; 
+    LinkedListNode<int> *curr=head;
+    LinkedListNode<int> *forward=head->next;
+    while(curr!=NULL)
+    {
+        forward=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=forward;
+        
+        
+        
+    }  
+    return prev; 
+        
+
+        
+
+    
+    
+}
+
+
+Q26
+/*
+Following is the class structure of the Node class:
+
+class Node
+{
+public:
+    int data;
+    Node *next;
+    Node()
+    {
+        this->data = 0;
+        next = NULL;
+    }
+    Node(int data)
+    {
+        this->data = data; 
+        this->next = NULL;
+    }
+    Node(int data, Node* next)
+    {
+        this->data = data;
+        this->next = next;
+    }
+};
+*/
+int nodeLength(Node* head){
+    int count=0;
+    while(head!=NULL)
+    {
+        head=head->next;
+        count++;
+    }
+    return count;
+}
+
+
+Node *reverse(Node *head) {
+    // Write your code here
+    int len=nodeLength(head);
+    int ans=len/2;
+    Node* temp=head;
+    while(ans!=0)
+    {
+        temp=temp->next;
+        ans--;
+    }
+    return temp;
+
+
+}
+
+Q27
+#include <bits/stdc++.h>
+
+/************************************************************
+
+    Following is the linked list node structure.
+    
+    template <typename T>
+    class Node {
+        public:
+        T data;
+        Node* next;
+
+        Node(T data) {
+            next = NULL;
+            this->data = data;
+        }
+
+        ~Node() {
+            if (next != NULL) {
+                delete next;
+            }
+        }
+    };
+
+************************************************************/
+
+Node<int>* sortTwoLists(Node<int>* first, Node<int>* second)
+{
+    // Write your code here.
+    if(first==NULL)return second;
+    if(second==NULL)return first;
+    Node<int>*l1=first,*l2=second,*temp,*res;
+    if(l1->data>=l2->data)swap(l1,l2);
+    res=l1;
+
+    while(l1!=NULL && l2!=NULL)
+    {
+        temp=NULL;
+        while(l1!=NULL && l1->data<=l2->data)
+        {
+            temp=l1;
+            l1=l1->next;
+        }
+        temp->next=l2;
+        swap(l1,l2);
+
+    }
+    
+
+    return res;
+    
+
+
+    
+
+}
+Q 28
+
+/*
+Following is the class structure of the Node class:
+
+class Node
+{
+public:
+    int data;
+    Node *next;
+    Node()
+    {
+        this->data = 0;
+        next = NULL;
+    }
+    Node(int data)
+    {
+        this->data = data; 
+        this->next = NULL;
+    }
+    Node(int data, Node* next)
+    {
+        this->data = data;
+        this->next = next;
+    }
+};
+*/
+int nodeLength(Node* head)
+{
+    int cnt=0;
+    while(head!=NULL)
+    {
+        head=head->next;
+        cnt++;
+    }
+    return cnt;
+}
+
+Node* removeKthNode(Node* head, int K)
+{
+    // Write your code here.
+    int len=nodeLength(head);
+
+    Node*t,* p=head;
+    t=head;
+    if(len-K==0)return p->next;
+    
+    
+    while(len-K-1)
+    {
+        p=p->next;
+        len--;
+        
+    }
+   
+   p->next=p->next->next;
+//    delete(q);
+    
+    return t;
+    
+
+}
+
+Q29
+/**
+ * Definition of linked list:
+ *
+ * class Node {
+ * public:
+ *      int data;
+ *      Node *next;
+ *      Node() {
+ *          this->data = 0;
+ *          this->next = NULL;
+ *      }
+ *      Node(int data) {
+ *          this->data = data;
+ *          this->next = NULL;
+ *      }
+ *      Node (int data, Node *next) {
+ *          this->data = data;
+ *          this->next = next;
+ *      }
+ * };
+ *
+ 
+ *************************************************************************/
+ 
+ void insertAtTail(Node*  &head,Node* &tail,int digit)
+ {
+   Node* temp=new Node(digit);
+   if(head==NULL)
+   {
+     head=temp;
+     tail=temp;
+     return;
+    
+   }
+   else{
+     tail->next=temp;
+     tail=temp;
+   }
+   
+ }
+Node *addTwoNumbers(Node *num1, Node *num2)
+{
+    // Write your code here.
+    
+    
+    
+    Node* dummy=NULL,*temp=NULL;
+    int carry=0;
+    while(num1!=NULL || num2!=NULL || carry)
+    {
+      int sum=0;
+      if(num1!= NULL)
+      {
+        sum+=num1->data;
+        num1=num1->next;
+        
+      }
+      if(num2!= NULL)
+      {
+        sum+=num2->data;
+        num2=num2->next;
+        
+      }
+      sum+=carry;
+      carry=sum/10;
+      sum%=10;
+      
+      insertAtTail(dummy,temp,sum);
+      
+      
+        
+      
+      
+      
+    }
+    
+    return dummy;
+}
+Q30
+#include <bits/stdc++.h>
+
+/****************************************************************
+
+    Following is the class structure of the LinkedListNode class:
+
+    template <typename T>
+    class LinkedListNode
+    {
+    public:
+        T data;
+        LinkedListNode<T> *next;
+        LinkedListNode(T data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+
+*****************************************************************/
+
+void deleteNode(LinkedListNode<int> * node) {
+    // Write your code here.
+    if(node==NULL)return;
+    if(node->next==NULL)
+    {
+        node=NULL;
+        return;
+    }
+    node->data=node->next->data;
+    LinkedListNode<int> *temp=node->next;
+    node->next=temp->next;
+    delete temp;
+
+}
+Q31
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+
+*****************************************************************/
+
+Node* findIntersection(Node *head1, Node *head2)
+{
+    //Write your code here
+    if(head1==NULL || head2==NULL)return NULL;
+    Node *d1=head1,*d2=head2;
+    while(d1!=d2)
+    {
+        d1=(d1==NULL)?head2:d1->next;
+        d2=(d2==NULL)?head1:d2->next;
+
+    }
+    
+    
+
+    return d1;
+}
+Q32
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+
+
+*****************************************************************/
+
+bool detectCycle(Node *head)
+{
+	//	Write your code here
+    if(head == NULL ||  head->next==NULL)return false;
+    Node* s=head,*f=head;
+    while(f->next && f->next->next)
+    {
+        
+        s=s->next;
+        f=f->next->next;
+        if(s==f)return true;
+
+    }
+    return false;
+}
+Q33
+#include <bits/stdc++.h>
+
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+	        int data;
+	        Node *next;
+	        Node(int data)
+	        {
+		        this->data = data;
+		        this->next = NULL;
+	        }
+        };
+
+*****************************************************************/
+int calc(Node *head){
+	Node*p=head;
+	int l=0;
+	while(p){
+		l++;
+		p=p->next;
+	}
+	return l;
+}
+
+Node *reverse(Node *head) {
+  Node *p = head, *nxt, *prev = NULL;
+
+  while (p) {
+    nxt = p->next;
+    p->next = prev;
+
+    prev = p;
+    p = nxt;
+  }
+
+  return prev;
+}
+
+
+Node *getListAfterReverseOperation(Node *head, int n, int b[]){
+	// Write your code here.
+	Node*dummy=new Node(0);
+
+	dummy->next=head;
+    Node*p=dummy,*curr,*nxt;
+	if(head==NULL || head->next==NULL)return head;
+	int len=calc(head);
+	for(int i=0;i<n;i++){
+		if(len==0)break;
+		if(b[i]<=len){
+			curr=p->next;
+			nxt=curr->next;
+
+			if(b[i]==0)continue;
+			for(int j=0;j<b[i]-1;j++)
+			{
+				curr->next=nxt->next;
+				nxt->next=p->next;
+				p->next=nxt;
+				nxt=curr->next;
+
+			}
+			len-=b[i];
+			p=curr;
+
+
+		}
+		else if(len<=b[i])
+		{
+			p->next=reverse(p->next);
+			len=0;
+		}
+	}
+
+
+
+    return dummy->next;
+	
+
+
+}
+Q34
+
+#include <bits/stdc++.h> 
+/****************************************************************
+
+    Following is the class structure of the LinkedListNode class:
+
+    template <typename T>
+    class LinkedListNode
+    {
+    public:
+        T data;
+        LinkedListNode<T> *next;
+        LinkedListNode(T data)
+        {
+            this->data = data;
+            this->next = NULL;
+        }
+    };
+
+*****************************************************************/
+LinkedListNode<int>*reverse(LinkedListNode<int>*head)
+{
+    LinkedListNode<int>*curr=head,*forward=head,*newhead=NULL;
+    while(curr!=NULL)
+    {
+        forward=curr->next;curr->next=newhead;
+        newhead=curr;
+        curr=forward;
+        
+
+        
+    }
+    return newhead;
+}
+
+bool isPalindrome(LinkedListNode<int> *head) {
+    // Write your code here.
+    if(head==NULL ||head->next==NULL )return true;
+    LinkedListNode<int>* s=head,*f=head,*d=head;
+    while(f->next && f->next->next)
+    {
+        s=s->next;
+        f=f->next->next;
+    }
+    s->next=reverse(s->next);
+    s=s->next;
+    while(s!=NULL)
+    {
+        if(s->data!=d->data)return false;
+        s=s->next;
+        d=d->next;
+    }
+    return true;
+
+
+}
+Q 35
+
+/****************************************************************
+
+    Following is the class structure of the Node class:
+
+        class Node
+        {
+        public:
+            int data;
+            Node *next;
+            Node()
+            {
+                this->data = 0;
+                next = NULL;
+            }
+            Node(int data)
+            {
+                this->data = data;
+                this->next = NULL;
+            }
+            Node(int data, Node* next)
+            {
+                this->data = data;
+                this->next = next;
+            }
+        };
+
+
+*****************************************************************/
+
+Node *firstNode(Node *head)
+{
+    //    Write your code here.
+    if(head==NULL || head->next==NULL)return NULL;
+    Node *s=head,*f=head,*entry=head;
+    
+    while(f->next && f->next->next)
+    {
+        s=s->next;
+        f=f->next->next;
+        
+        if(s==f){
+            if(s==entry)return s;
+            while(true)
+            {
+                s=s->next;
+                entry=entry->next;
+                if(s==entry)return entry;
+                
+            }
+
+        }
+     }
+     return NULL;
+
+}
+Q36
+
