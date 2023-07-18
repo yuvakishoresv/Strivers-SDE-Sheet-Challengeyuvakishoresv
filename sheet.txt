@@ -293,20 +293,361 @@ int findDuplicate(vector<int> &arr, int n){
 	}
 }
 
-Q11-24 MISSING
+Q11
+#include <bits/stdc++.h>
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{ int hash[n+1]={0};
+
+    
+
+    for(int i=0;i<n;i++){
+
+        hash[arr[i]]++;
+
+    }
+
+    int rep=-1,miss=-1;
+
+    for(int i=1;i<=n;i++){
+
+        if(hash[i]==2)
+
+        rep=i;
+
+        else if(hash[i]==0)
+
+        miss=i;
+
+ 
+
+        if(rep!=-1 && miss!=-1){
+
+            break;
+
+        }
+
+    }
+
+    return {miss,rep};
+
+    
+}
+Q12
+#include <bits/stdc++.h> 
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+    long long ans=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(arr[i]>arr[j])ans++;
+        }
+    }
+    return ans;
+
+}
+Q13
+bool searchMatrix(vector<vector<int>>& mat, int target) {
+    int m=mat.size(),n=mat[0].size();
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(mat[i][j]==target)return true;
+            else if(mat[i][j]>target)return false;
+        }
+    }
+    return false;
+        
+}
+Q14
+#include <bits/stdc++.h>
+
+int modularExponentiation(int x, int n, int m) {
+    long ans=1;
+
+long xx=x;
+
+while(n>0)
+
+{
+
+    if(n%2!=0)
+
+    {
+
+        ans=((ans)%m*(xx)%m)%m;
+
+    }
+
+    xx=((xx)%m*(xx)%m)%m;
+
+    n=n>>1;
+
+}
+
+return (int)(ans%m);
+	 
+}
+Q15
+#include <bits/stdc++.h>
+
+int findMajorityElement(int arr[], int n) {
+	// Write your code here.
+	int cnt=1,a=arr[0];
+	for(int i=1;i<n;i++)
+	{
+        
+		if(arr[i]==a)
+		{
+			cnt++;
+		}
+		else{
+			            cnt--;
+                        if (cnt == 0) {
+                          a = arr[i];
+                          cnt = 1;
+                        }
+                }
 
 
 
 
 
+	}
+	int b=0;
+	for(int i=0;i<n;i++)
+	{
+		if(a==arr[i])
+		{
+			b++;
+		}
 
 
 
 
+	}
+	if(b>n/2)return a;
+	return -1;
+
+
+}
+Q16
+#include <bits/stdc++.h>
+
+vector<int> majorityElementII(vector<int> &arr)
+{
+    // Write your code here.
+    unordered_map<int,int>mp;
+    for(auto x:arr)mp[x]++;
+    int k=arr.size()/3;
+    vector<int>ans;
+    for(auto x:mp)
+    {
+        if(x.second>k)
+        {
+            ans.push_back(x.first);
+        }
+    }
+    return ans;
+}
+Q17
+#include <bits/stdc++.h> 
+int uniquePaths(int m, int n) {
+	// Write your code here.
+	  int path = 1;
+    for (int i = n; i < (m + n - 1); i++) {
+        path *= i;
+        path /= (i - n + 1);
+    }
+    return path;
+}
+Q18
+#include <bits/stdc++.h> 
+
+#include <ext/pb_ds/assoc_container.hpp>
+
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace __gnu_pbds;
+
+  
+
+#define ordered_set tree<int, null_type,less_equal<int>, rb_tree_tag,tree_order_statistics_node_update>
+int reversePairs(vector<int> &arr, int n){
+	// Write your code here.
+		ordered_set os;
+
+	os.insert(arr[n-1]);
+
+	int ans = 0;
+
+	for(int i = n-2; i >= 0; i--) {
+
+		ans += os.order_of_key((arr[i]/2)+ arr[i]%2 );
+
+		os.insert(arr[i]);
+
+	}
+
+	return ans;
+}
+Q19
+#include <bits/stdc++.h>
+
+vector<vector<int>> pairSum(vector<int> &arr, int s){
+   // Write your code here.
+   sort(arr.begin(),arr.end());
+   vector<vector<int>> ans;
+   for(int i=0;i<arr.size();i++)
+   {
+      for(int j=i+1;j<arr.size();j++)
+      {
+         if(arr[i]+arr[j]==s)
+         {
+            ans.push_back({arr[i],arr[j]});
+         }
+      }
+
+   }
+   return ans;
+
+}
+Q20
+#include <bits/stdc++.h>
+
+string fourSum(vector<int> nums, int target, int n) {
+    // Write your code here.
+      vector<vector<int>> ans;
+         
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<n;i++)
+        {
+            if(i>0 && nums[i]==nums[i-1])
+                continue;
+            for(int j=i+1;j<n;j++)
+            {
+                if(j>i+1 && nums[j]==nums[j-1])
+                    continue;
+                int k=j+1;
+                int l=n-1;
+                while(k<l)
+                {
+                    long long sum = nums[i];
+                    sum += nums[j];
+                    sum += nums[k];
+                    sum += nums[l];
+                    if(sum == target)
+                    {
+                        vector<int> temp={nums[i],nums[j],nums[k],nums[l]};
+                        ans.push_back(temp);
+                        k++;
+                        l--;
+                        while(k<l && nums[k]==nums[k-1]) k++;
+                        while(k<l && nums[l]==nums[l+1]) l--;
+                    }
+                    else if (sum > target)
+                        l--;
+                    else
+                        k++;
+                    
+                }
+            }
+        }
+        if(ans.size()==0)
+        return "No";
+        else 
+        return "Yes";
+}
+Q21
+#include <bits/stdc++.h>
+
+int lengthOfLongestConsecutiveSequence(vector<int> &arr, int n) {
+    // Write your code here.
+    sort(arr.begin(),arr.end());
+    int count=1;
+    int res=1;
+    for(int i=1;i<n;i++)
+    {
+        if(arr[i]==arr[i-1] || arr[i]==arr[i-1]+1 )
+        {
+            if(arr[i]==arr[i-1]+1)count++;
+            
+
+        }
+        else{
+            count=1;
+        }
+        res=max(count,res);
+
+    }
+    
+    return res;
 
 
 
+}
+Q22
+#include <bits/stdc++.h>
 
+int LongestSubsetWithZeroSum(vector < int > arr) {
+
+  // Write your code here
+  int ans=0;
+  for(int i=0;i<arr.size();i++)
+  {
+    int cnt=0;
+    
+      for(int j=i;j<arr.size();j++)
+      {
+        cnt+=arr[j];
+        if(cnt==0)ans=max(ans,j-i+1);
+
+      }
+    
+  }
+  return ans;
+
+}
+Q23
+#include <bits/stdc++.h>
+
+int subarraysXor(vector<int> &arr, int x)
+{
+    //    Write your code here.
+    int xr=0;
+    map<int,int>mp;
+    mp[xr]++;
+    int cnt=0;
+    for(int i=0;i<arr.size();i++){
+        xr=xr^arr[i];
+        int y=xr^x;
+        cnt+=mp[y];
+        mp[xr]++;
+
+    }
+    return cnt;
+}
+Q24
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string s)
+{
+    //Write your code here
+    vector<int>mp(256,-1);
+    int l=0,r=0,len=0;
+    while(r<s.size()){
+        if(mp[s[r]]!=-1){
+            l=max(mp[s[r]]+1,l);
+        }
+        mp[s[r]]=r;
+        len=max(len,r-l+1);
+        r++;
+
+    }
+    return len;
+}
 Q25
 #include <bits/stdc++.h>
 
