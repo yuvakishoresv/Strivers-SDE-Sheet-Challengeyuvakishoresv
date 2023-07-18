@@ -7500,6 +7500,142 @@ Q158
 
 
 
+Q161
+#include<bits/stdc++.h>
+bool dfs(int i,vector<int>& vis,vector<int>& pathvis,vector<list<int>>& adj)
+{
+  vis[i]=1;
+  pathvis[i] = 1;
+
+  for(auto nb:adj[i])
+  {
+    if (vis[nb] == 0) {
+      if (dfs(nb, vis, pathvis, adj) == true)
+        return true;
+    }
+
+    else if (pathvis[nb] == 1)
+      return true;
+  }
+  pathvis[i] = 0;
+  return false;
+}
+int detectCycleInDirectedGraph(int n, vector < pair < int, int >> & edges) {
+  // Write your code here.
+  vector<list<int>> adj(n+1);
+
+  for(int i=0;i<edges.size();i++)
+  {
+    int u = edges[i].first;
+    int v = edges[i].second;
+
+    adj[u].push_back(v);
+  }
+
+  vector<int> vis(n+1,0);
+  vector<int>pathvis(n+1,0);
+
+  for(int i=1;i<=n;i++)
+  {
+    //pathvis={0};
+    if (vis[i] == 0) {
+      if (dfs(i, vis, pathvis, adj))
+        return 1;
+    }
+  }
+  return 0;
+}
+Q162
+#include <bits/stdc++.h> 
+#include<queue>
+vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e)  {
+    // Write your code here
+    vector<int>adj[v];
+    for(int i=0;i<e;i++)
+    {
+        int a=edges[i][0];
+        int b=edges[i][1];
+        adj[a].push_back(b);
+    }
+    int indegree[v]={0};
+    for(int i=0;i<v;i++){
+      for (auto it : adj[i]) {
+        indegree[it]++;
+      }
+    }
+    queue<int>q;
+    for(int i=0;i<v;i++){
+        if(indegree[i]==0){
+            q.push(i);
+        }
+    }
+    vector<int>toposort;
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        toposort.push_back(node);
+        for(auto it:adj[node]){
+            indegree[it]--;
+            if(indegree[it]==0){
+                q.push(it);
+            }
+        }
+    }
+    return toposort;
+
+
+}
+Q163
+#include<bits/stdc++.h>
+#include<queue>
+void bfs(int row,int col,int **arr,int n ,int m,int r[],int c[]){
+
+   queue<pair<int,int>>q;
+   q.push({row,col});
+   
+   while(!q.empty()){
+      int one=q.front().first;
+      int two=q.front().second;
+      q.pop();
+      arr[one][two]=2;
+      
+      for(int i=0;i<8;i++){
+         int nr=one+r[i];
+         int nc=two+c[i];
+         if(nr>=0 and nc>=0 and nr<n and nc<m and arr[nr][nc]==1){
+            q.push({nr,nc});
+         }
+         
+      }
+
+   }
+
+}
+int getTotalIslands(int** arr, int n, int m)
+{
+   // Write your code here.
+  
+   int count=0;
+   int r[8]={-1,-1,-1,0,0,1,1,1};
+   int c[8]={-1,0,1,-1,1,-1,0,1};
+   for(int i=0;i<n;i++){
+      for(int j=0;j<m;j++){
+         if(arr[i][j]==1){
+        
+            bfs(i,j,arr,n,m,r,c);
+            count++;
+         }
+      }
+   }
+   return count;
+}
+
+Q164
+
+
+
+
+
 
 
 
