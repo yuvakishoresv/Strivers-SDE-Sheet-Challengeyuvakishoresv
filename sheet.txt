@@ -4693,6 +4693,2526 @@ string longestPalinSubstring(string str)
 
 }
 Q101
+int romanToInt(string s) {
+     int len=s.size();
+
+    int sum=0;
+
+    int i=0;
+
+    while(i<len){
+
+if(s[i]=='I' and s[i+1]=='V'){sum+=4;i=i+2;continue;}
+
+if(s[i]=='I' and s[i+1]=='X'){sum+=9;i=i+2;continue;}
+
+if(s[i]=='X' and s[i+1]=='L'){sum+=40;i=i+2;continue;}
+
+if(s[i]=='X' and s[i+1]=='C'){sum+=90;i=i+2;continue;}
+
+if(s[i]=='C' and s[i+1]=='D'){sum+=400;i=i+2;continue;}
+
+if(s[i]=='C' and s[i+1]=='M'){sum+=900;i=i+2;continue;}
+
+      if (s[i] == 'I') {
+
+        sum += 1;
+
+        i = i + 1;continue;
+
+      }
+
+        if(s[i]=='V'){
+
+            sum+=5;
+
+            i=i+1;continue;
+
+        }
+
+        if(s[i]=='X'){
+
+            sum+=10;
+
+            i=i+1;continue;
+
+        }
+
+        if(s[i]=='L'){
+
+            sum+=50;
+
+            i=i+1;continue;
+
+        }
+
+        if(s[i]=='C'){
+
+            sum+=100;
+
+            i=i+1;continue;
+
+        }
+
+        if(s[i]=='D'){
+
+            sum+=500;
+
+            i=i+1;continue;
+
+        }
+
+        if(s[i]=='M'){
+
+            sum+=1000;
+
+            i=i+1;continue;
+
+        }
+
+        
+
+    }
+
+    return sum;
+}
+Q102
+#include <bits/stdc++.h> 
+int atoi(string str) {
+    // Write your code here.
+    string a="";
+    for(int i=0;i<str.size();i++)
+    {
+        if(str[i]<65 && str[i]!='-'){
+            a+=str[i];
+        }
+
+
+    }
+    if(str[0]=='-'){
+        return -stoi(a);
+    }
+    return stoi(a);
+    
+}
+Q103
+#include<bits/stdc++.h>
+string longestCommonPrefix(vector<string> &arr, int n)
+{
+    // Write your code here
+    string ans="";
+    sort(arr.begin(),arr.end());
+    string s=arr[0],e=arr[n-1];
+    for(int i=0;i<s.size();i++){
+        if(s[i]!=e[i]){
+            break;
+        }
+        ans+=s[i];
+    }
+    
+    return ans;
+}
+
+Q104
+vector<int> stringMatch(string p, string s) {
+	// Write your code here.
+	 vector<int>ans;
+            int ssize=s.length(),psize=p.length();
+            for(int i=0;i<-ssize+psize+1;i++)
+            {
+                if(p.substr(i,ssize)==s){
+                    ans.push_back(i+1);
+                }
+            }
+           
+            return ans;
+}
+
+Q105
+int zAlgorithm(string s, string p, int n, int m)
+{
+	// Write your code here
+	int count=0;
+	for(int i=0;i<n-m+1;i++)
+	{
+		if(s.substr(i,m)==p){
+			count++;
+		}
+	}
+	return count;
+}
+Q106
+#include <bits/stdc++.h> 
+bool findPattern(string p, string s)
+{
+    // Write your code here.
+    int ssize=s.size(),psize=p.size();
+    for(int i=0;i<ssize-psize+1;i++){
+        if(s.substr(i,psize)==p){
+            return true;
+        }
+    }
+    return false;
+}
+Q107
+
+// bool ispalindrome(string str)
+// {
+// 	int l=0,r=str.size()-1;
+// 	while(l<r){
+// 		if(str[l]!=str[r]){
+// 			return false;
+// 		}
+// 		l++;
+// 		r--;
+
+// 	}
+// 	return true;
+// }
+// int minCharsforPalindrome(string str) {
+// 	// Write your code here.
+// 	int l=0,r=str.size()-1,count=0;
+// 	while(l<r){
+// 		if(str[l]==str[r]&& ispalindrome(str.substr(l,r-l+1))==true){
+			
+// 				break;
+			
+			
+// 		}
+// 		else{
+// 			r--;
+// 			count++;
+// 		}
+
+// 	}
+// 	return count;
+	
+	
+// }
+#include<bits/stdc++.h>
+int minCharsforPalindrome(string str) {
+	int n = str.size();
+	int i = 0, j = n - 1, count = 0, tempJ = j;
+	while(i < j) {
+		if(str[i] == str[j])
+			i++, j--;
+		else {
+			count++;
+			i = 0, tempJ--;
+			j = tempJ;
+		}
+	}	
+	return count;
+}
+Q108
+#include <bits/stdc++.h> 
+bool areAnagram(string &str1, string &str2){
+    // Write your code here.
+    sort(str1.begin(),str1.end());
+    sort(str2.begin(),str2.end());
+    for(int i=0;i<str1.size();i++)
+    {
+        if(str1[i]!=str2[i])
+        {
+            return false;
+        }
+        
+
+    }
+    return true;
+    
+}
+Q109
+#include <bits/stdc++.h> 
+string writeAsYouSpeak(int n) 
+{
+	// Write your code here.
+	string s="1";
+
+    for(int i=0;i<n-1;i++)
+
+    {
+
+        string a;
+
+        for(int j=0;j<s.length();)
+
+        {
+
+            int cnt=0;
+
+            int k=j;
+
+            while(j<s.length() && s[j]==s[k])
+
+            {
+
+                cnt++;
+
+                k++;
+
+            }
+
+            a+=to_string(cnt)+s[j];
+
+            j=k;
+
+        }
+
+        s=a;
+
+    }   
+
+    return s;
+
+}
+Q110
+#include <bits/stdc++.h> 
+int compareVersions(string a, string b) 
+{
+    // Write your code here
+    int i=0;
+
+    int j=0;
+
+    while(i<a.size()||j<b.size()){
+
+ long x=0;
+
+ long y=0;
+
+ while(i<a.size()&&a[i]!='.')x=x*10+(a[i++]-'0');
+
+ while(j<b.size()&&b[j]!='.')y=y*10+(b[j++]-'0');
+
+ if(x>y)return 1;
+
+ else if(x<y)return -1;
+
+ i++;
+
+ j++;
+
+ 
+
+    }
+
+    return 0;
+}
+Q111
+#include <bits/stdc++.h> 
+/*
+    Following is Binary Tree Node structure:
+    class TreeNode
+    {
+    public:
+        int data;
+        TreeNode *left, *right;
+        TreeNode() : data(0), left(NULL), right(NULL) {}
+        TreeNode(int x) : data(x), left(NULL), right(NULL) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
+    };
+*/
+void inorder(TreeNode* root,vector<int>&ans){
+    if(root==NULL)return;
+    inorder(root->left,ans);
+    ans.push_back(root->data);
+    inorder(root->right,ans);
+}
+vector<int> getInOrderTraversal(TreeNode *root)
+{
+    // Write your code here.
+    vector<int>ans;
+    inorder(root,ans);
+    return ans;
+}
+Q112
+#include <bits/stdc++.h> 
+/*
+    Following is Binary Tree Node structure:
+    class TreeNode
+    {
+    public:
+        int data;
+        TreeNode *left, *right;
+        TreeNode() : data(0), left(NULL), right(NULL) {}
+        TreeNode(int x) : data(x), left(NULL), right(NULL) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
+    };
+*/
+void preorder(TreeNode* root,vector<int>&ans){
+    if(root==NULL)return;
+    ans.push_back(root->data);
+    preorder(root->left,ans);
+    preorder(root->right,ans);
+}
+vector<int> getPreOrderTraversal(TreeNode *root)
+{
+    // Write your code here.
+    vector<int>ans;
+    preorder(root,ans);
+    return ans;
+}
+Q113
+#include <bits/stdc++.h> 
+/*
+    Following is Binary Tree Node structure:
+    class TreeNode
+
+    {
+    public:
+        int data;
+        TreeNode *left, *right;
+        TreeNode() : data(0), left(NULL), right(NULL) {}
+        TreeNode(int x) : data(x), left(NULL), right(NULL) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
+    };
+*/
+void postorder(TreeNode* root,vector<int>&ans){
+    if(root==NULL)return ;
+    postorder(root->left,ans);
+    postorder(root->right,ans);
+    ans.push_back(root->data);
+}
+
+vector<int> getPostOrderTraversal(TreeNode *root)
+{
+    // Write your code here.
+    vector<int>ans;
+    postorder(root,ans);
+    return ans;
+}
+Q114
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void leftView(TreeNode<int> *root,vector<int>& ans,int level){
+    if(root==NULL)return;
+    
+    if(level==ans.size()){
+        ans.push_back(root->data);
+    }
+    if(!root->left && !root->right)return;
+    leftView(root->left,ans,level+1);
+    leftView(root->right,ans,level+1);
+}
+
+vector<int> getLeftView(TreeNode<int> *root)
+{
+    //    Write your code here
+    vector<int>ans;
+    leftView(root,ans,0);
+    return ans;
+   
+
+
+}
+Q115
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure.
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+
+vector<int> bottomView(BinaryTreeNode<int> * root){
+
+    // Write your code here.
+    vector<int>ans;
+    if(root==NULL)return ans;
+    map<int,int>mpp;
+    queue<pair<BinaryTreeNode<int>*,int>>q;
+    q.push({root,0});
+    while(!q.empty()){
+        auto it=q.front();
+        q.pop();
+        BinaryTreeNode<int>* node=it.first;
+        int line=it.second;
+        mpp[line]=node->data;
+        if(node->left){
+            q.push({node->left,line-1});
+        }
+        if(node->right){
+            q.push({node->right,line+1});
+        }
+
+
+    }
+    for(auto it:mpp)
+    {
+        ans.push_back(it.second);
+    }
+    return ans;
+    
+    
+}
+
+Q116
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+vector<int> getTopView(TreeNode<int> *root) {
+    // Write your code here.
+
+
+     vector<int>ans;
+    if(root==NULL)return ans;
+    map<int,int>mpp;
+    queue<pair<TreeNode<int>*,int>>q;
+    q.push({root,0});
+    while(!q.empty()){
+        auto it=q.front();
+        q.pop();
+        TreeNode<int>* node=it.first;
+        int line=it.second;
+        if(mpp.find(line)==mpp.end()){
+          mpp[line]=node->val;
+        }
+        if(node->left){
+            q.push({node->left,line-1});
+        }
+        if(node->right){
+            q.push({node->right,line+1});
+        }
+
+
+    }
+    for(auto it:mpp)
+    {
+        ans.push_back(it.second);
+    }
+    return ans;
+}
+Q117
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Binary Tree node structure:
+
+    class BinaryTreeNode
+    {
+    public :
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+
+************************************************************/
+void inorder(BinaryTreeNode<int> *root,vector<int>&ans){
+    if(root==NULL)return;
+    inorder(root->left,ans);
+    ans.push_back(root->data);
+    inorder(root->right,ans);
+}
+void getInOrderTraversal(BinaryTreeNode<int> *root,vector<vector<int>>&sol)
+{
+    // Write your code here.
+    vector<int>ans;
+    inorder(root,ans);
+    sol.push_back(ans);
+    return;
+
+    
+}
+void preorder(BinaryTreeNode<int> *root,vector<int>&ans){
+    if(root==NULL)return;
+    ans.push_back(root->data);
+    preorder(root->left,ans);
+    preorder(root->right,ans);
+}
+void getPreOrderTraversal(BinaryTreeNode<int> *root,vector<vector<int>>&sol)
+{
+    // Write your code here.
+    vector<int>ans;
+    preorder(root,ans);
+    sol.push_back(ans);
+    return;
+}
+void postorder(BinaryTreeNode<int> *root,vector<int>&ans){
+    if(root==NULL)return ;
+    postorder(root->left,ans);
+    postorder(root->right,ans);
+    ans.push_back(root->data);
+}
+
+void getPostOrderTraversal(BinaryTreeNode<int> *root,vector<vector<int>>&sol) {
+  // Write your code here.
+  vector<int> ans;
+  postorder(root, ans);
+  sol.push_back(ans);
+  return;
+}
+
+vector<vector<int>> getTreeTraversal(BinaryTreeNode<int> *root){
+    // Write your code here.
+    vector<vector<int>>sol;
+  
+    getInOrderTraversal(root,sol);
+    getPreOrderTraversal(root,sol);
+    getPostOrderTraversal(root,sol);
+    return sol;
+}
+Q118
+#include <bits/stdc++.h> 
+/************************************************************
+
+Following is the Binary Tree node class
+    
+template <typename T = int>
+class TreeNode
+{
+public:
+    T data;
+    TreeNode<T> *left;
+    TreeNode<T> *right;
+
+    TreeNode(T val)
+    {
+        this->data = val;
+        left = NULL;
+        right = NULL;
+    }
+
+    ~TreeNode()
+    {
+        if (left != NULL)
+        {
+            delete left;
+        }
+        if (right != NULL)
+        {
+            delete right;
+        }
+    }
+};
+
+************************************************************/
+
+
+vector<int> verticalOrderTraversal(TreeNode<int> *root)
+{
+   if(root==NULL)return {};
+
+vector<int> v;
+
+queue<pair<TreeNode<int>*,int>> q;
+
+map<int,vector<int>> m;
+
+q.push({root,0});
+
+m[0].push_back(root->data);
+
+while(!q.empty()){
+
+auto it=q.front();
+
+q.pop();
+
+TreeNode<int> *temp=it.first;
+
+int distance=it.second;
+
+if(temp->left){
+
+    q.push({temp->left,distance-1});
+
+    m[distance-1].push_back(temp->left->data);
+
+}
+
+if(temp->right){
+
+    q.push({temp->right,distance+1});
+
+    m[distance+1].push_back(temp->right->data);
+
+}
+
+ 
+
+}
+
+ 
+
+for(auto it:m){
+
+   for(auto i:it.second){
+
+       v.push_back(i);
+
+   }
+
+}
+
+return v;
+}
+Q119
+#include <bits/stdc++.h> 
+/*   
+    template <typename T = int>
+	class TreeNode
+	{
+		public:
+		T data;
+		TreeNode<T> *left;
+		TreeNode<T> *right;
+
+		TreeNode(T data)
+		{
+			this->data = data;
+			left = NULL;
+			right = NULL;
+		}
+
+		~TreeNode()
+		{
+			if (left != NULL)
+			{
+		  		delete left;
+			}
+			if (right != NULL)
+			{
+			 	delete right;
+			}
+		}
+	};
+*/
+bool inorderCheck(TreeNode<int> *root, int x,vector<int>& ans)
+{
+  if (root == NULL) {
+    return false;
+  }
+        ans.push_back(root->data);
+        if (root->data == x) {
+          return true;
+        }
+		if(inorderCheck(root->left,x,ans)||inorderCheck(root->right,x,ans)){
+			return true;
+		}
+		ans.pop_back();
+		return false;
+}
+
+
+vector<int> pathInATree(TreeNode<int> *root, int x)
+{
+    // Write your code here.
+	vector<int>ans;
+	inorderCheck(root,x,ans);
+	return ans;
+}
+
+Q120
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+int getMaxWidth(TreeNode<int> *root)
+{
+    // Write your code here.
+    if(root==NULL)return 0;
+    int ans=0;
+    queue<pair<TreeNode<int>*,int>>q;
+    q.push({root,0});
+    while(!q.empty()){
+      int size=q.size();
+      int mmin=q.front().second;
+      ans=max(ans,size);
+      for(int i=0;i<size;i++){
+        int curr_id=q.front().second-mmin;
+        TreeNode<int>*node=q.front().first;
+        q.pop();
+        
+        if(node->left){
+          q.push({node->left,curr_id*2+1});
+        }
+        if(node->right){
+          q.push({node->right,curr_id*2+2});
+        }
+      }
+     
+      
+    }
+    return ans;
+}
+Q121
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the BinaryTreeNode class structure
+
+    template <typename T>
+    class BinaryTreeNode {
+       public:
+        T val;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+vector<int> getLevelOrder(BinaryTreeNode<int> *root)
+{
+    //  Write your code here.
+    vector<int>ans;
+    queue<BinaryTreeNode<int>*>q;
+    if(root==NULL)return ans;
+    q.push(root);
+    while(!q.empty()){
+        BinaryTreeNode<int>*p=q.front();
+        q.pop();
+        ans.push_back(p->val);
+        if (p->left) {
+          q.push(p->left);
+        }
+        if(p->right){
+             q.push(p->right);
+        }
+    }
+    return ans;
+}
+Q122
+#include <bits/stdc++.h> 
+class Temp {
+public:
+    int height;
+    int leftIndex;
+    int rightIndex;
+
+    Temp(int h, int li, int ri) {
+        height = h;
+        leftIndex = li;
+        rightIndex = ri;
+    }
+};
+
+int heightOfTheTree(vector<int>& inorder, vector<int>& levelOrder, int N){
+    int maxHeight = 0;
+    queue<Temp> q;
+
+    if(N >= 1) {
+        Temp temp(0, 0, N - 1);
+        q.push(temp);
+    }
+    unordered_map<int, int> map;
+    for(int i = 0;i < N; i++) {
+        map[inorder[i]] = i;
+    }
+
+    for(int i = 0;i < N; i++) {
+        Temp temp = q.front();
+        q.pop();
+
+        maxHeight = max(temp.height, maxHeight);
+
+        int li = temp.leftIndex;
+        int ri = temp.rightIndex;
+        int rootIndex;
+
+        rootIndex = map[levelOrder[i]];
+
+        if(rootIndex - 1 >= li) {
+            Temp leftSubTree(temp.height + 1, li, rootIndex - 1);
+            q.push(leftSubTree);
+        }
+
+        if(rootIndex + 1 <= ri) {
+            Temp rightSubTree(temp.height + 1, rootIndex + 1, ri);
+            q.push(rightSubTree);
+        }
+    }
+
+    return maxHeight;
+}
+Q123
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+int solve(TreeNode<int> *root,int &maxi){
+  if (root == NULL) {
+    return 0;
+  }
+  int lh=0,rh=0;
+    lh=solve(root->left,maxi);
+    rh=solve(root->right,maxi);
+    maxi=max(maxi,lh+rh);
+    return 1+max(lh,rh);
+}
+
+int diameterOfBinaryTree(TreeNode<int> *root)
+{
+	// Write Your Code Here.
+    int maxi=0;
+    solve(root,maxi);
+    return maxi;
+    
+
+}
+
+
+Q124
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+    
+
+*************************************************************/
+int height(BinaryTreeNode<int>*root)
+{
+    if(root==NULL)return 0;
+    return max(height(root->left),height(root->right))+1;
+}
+
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    // Write your code here.
+    if(root==NULL)return true;
+    if(isBalancedBT(root->left) and isBalancedBT(root->right)){
+        if(abs(height(root->left)-height(root->right))<=1)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+Q125
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
+{
+	//    Write your code here
+        if (root == NULL) {
+          return -1;
+        }
+        if(root->data==x||root->data==y){
+            return root->data;
+        }
+        int leftAns=lowestCommonAncestor(root->left,x,y);
+        int rightAns=lowestCommonAncestor(root->right,x,y);
+        if(leftAns!=-1 && rightAns!=-1){
+            return root->data;
+        }
+        return max(leftAns,rightAns);
+}
+Q126
+#include <bits/stdc++.h> 
+/**********************************************************
+
+    Following is the Binary Tree Node class structure:
+
+    template <typename T>
+
+    class BinaryTreeNode {
+    public :
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+		
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+***********************************************************/
+
+bool identicalTrees(BinaryTreeNode<int>* root1, BinaryTreeNode<int>* root2) {
+    // Write your code here. 	 
+    if(root1==NULL && root2==NULL){
+      return true;
+    }
+    if (!root1 or !root2) {
+      return false;
+    }
+    if(root1->data==root2->data){
+      return (identicalTrees(root1->left,root2->left)&&identicalTrees(root1->right,root2->right));
+    }
+    return false;
+}
+
+Q127
+#include <bits/stdc++.h> 
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode
+    {
+    public :
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+
+vector<int> zigZagTraversal(BinaryTreeNode<int> *root)
+{
+    // Write your code here!
+    if(root==NULL)return {};
+    vector<int>ans;
+    queue<BinaryTreeNode<int> *>s;
+    s.push(root);
+    
+    bool leftorright=true;
+    while(!s.empty())
+    {
+        int size=s.size();
+        vector<int>sub(size);
+        for (int i = 0; i < size; i++) {
+
+          BinaryTreeNode<int> *node = s.front();
+          s.pop();
+          int index=leftorright?i:size-i-1;
+          sub[index]=node->data;
+          
+              if(node->left){
+                  s.push(node->left);
+                  
+              }
+              if(node->right){
+                  s.push(node->right);
+                 
+              }
+             
+          
+          }
+          leftorright=!leftorright;
+          for(auto i:sub){
+              ans.push_back(i);
+          }
+
+
+        
+    }
+    return ans;
+}
+
+Q128
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Binary Tree node structure:
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+bool isleaf(TreeNode<int>*root){
+    return (!root->left and !root->right);
+}
+void leftview(TreeNode<int>*root,vector<int>&ans){
+    TreeNode<int>*cur=root->left;
+    while(cur){
+        if(!isleaf(cur))ans.push_back(cur->data);
+        if(cur->left){
+            cur=cur->left;
+
+        }
+        else{
+            cur=cur->right;
+        }
+    }
+
+}
+void bottomview(TreeNode<int>*root,vector<int>&ans){
+     if (isleaf(root)) {
+    ans.push_back(root -> data);
+    return;
+  }
+  if (root -> left) bottomview(root -> left, ans);
+  if (root -> right) bottomview(root -> right, ans);
+}
+void rightrevview(TreeNode<int>*root,vector<int>&ans){
+     TreeNode<int>*cur=root->right;
+     vector<int>temp;
+     while(cur){
+         if(!isleaf(cur))temp.push_back(cur->data);
+         if(cur->right){
+             cur=cur->right;
+         }
+         else{
+             cur=cur->left;
+         }
+     }
+     for(int i=temp.size()-1;i>=0;i--){
+         ans.push_back(temp[i]);
+     }
+
+}
+
+vector<int> traverseBoundary(TreeNode<int>* root){
+    // Write your code here.
+    vector<int>ans;
+    if(!root)return ans;
+    ans.push_back(root->data);
+    if(isleaf(root))return ans;
+    leftview(root,ans);
+    bottomview(root,ans);
+    rightrevview(root,ans);
+    return ans;
+
+
+
+}
+Q129
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Tree node structure
+	
+	template <typename T>
+    class TreeNode 
+    {
+        public : 
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) 
+        {
+            this -> val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+long long int solve(TreeNode<int>*root,long long int& ans){
+    if(root==NULL ){
+        return 0;
+    }
+    long long int left=solve(root->left,ans);
+    long long int right=solve(root->right,ans);
+    ans=max(ans,root->val+left+right);
+    return root->val+max(left,right);
+
+
+
+   
+
+}
+
+long long int findMaxSumPath(TreeNode<int> *root)
+{
+    // Write your code here.
+    if(root==NULL or root->left==NULL or root->right==NULL)return -1;
+    long long int ans=0;
+    solve(root,ans);
+    return ans;
+    
+
+}
+Q130
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+#include <unordered_map>
+TreeNode<int>*build(vector<int> &inorder,int instart,int inend,vector<int> &preorder,int prestart,int preend,unordered_map<int,int>&mp)
+{
+  if(instart > inend || prestart > preend) {
+    return NULL;
+  }
+    TreeNode<int>*root=new TreeNode<int>(preorder[prestart]);
+    int inroot=mp[root->data];
+    int numsleft=inroot-instart;
+    root->left=build(inorder,instart,inroot-1,preorder,prestart+1,prestart+numsleft,mp);
+    root->right=build(inorder,inroot+1,inend,preorder,prestart+numsleft+1,preend,mp);
+    return root;
+
+}
+
+TreeNode<int> *buildBinaryTree( vector<int> &inorder,vector<int> &preorder)
+{
+	//    Write your code here
+    unordered_map<int,int>mp;
+    int n=inorder.size();
+    for(int i=0;i<n;i++)
+    {
+        mp[inorder[i]]=i;
+    }
+    return build(inorder,0,n-1,preorder,0,n-1,mp);
+    
+}
+
+Q131
+/************************************************************
+   
+   Following is the TreeNode class structure
+   
+   class TreeNode<T>
+   { 
+   public:
+        T data; 
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+   
+        TreeNode(T data) 
+  		{ 
+            this -> data = data; 
+            left = NULL; 
+            right = NULL; 
+        }
+   };
+   
+   
+ ************************************************************/
+#include<bits/stdc++.h>
+#include<unordered_map>
+TreeNode<int>*build(vector<int>&inorder,int instart,int inend,vector<int>&postorder,int poststart,int postend,unordered_map<int,int>&mp){
+     if(instart>inend || poststart<postend){
+          return NULL;
+     }
+     TreeNode<int>*root=new TreeNode<int>(postorder[poststart]);
+     int inroot=mp[root->data];
+     int numsright=inend-inroot;
+          
+     root->right=build(inorder,inroot+1,inend,postorder,poststart-1,poststart-numsright,mp);
+     root->left=build(inorder,instart,inroot-1,postorder,poststart-numsright-1,postend,mp);
+    
+     return root;
+}
+TreeNode<int>* getTreeFromPostorderAndInorder(vector<int>& postorder, vector<int>& inorder) 
+{
+	// Write your code here.
+     unordered_map<int,int>mp;
+     int n=inorder.size();
+     for(int i=0;i<n;i++)
+     {
+          mp[inorder[i]]=i;
+     }
+     return build(inorder,0,n-1,postorder,n-1,0,mp);
+
+     
+}
+
+Q132
+/*****************************************************
+
+    Following is the Binary Tree node structure:
+    
+    class BinaryTreeNode {
+        public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+        
+        ~BinaryTreeNode() {
+            if(left) 
+                delete left;
+            if(right) 
+                delete right;
+        }
+    };
+
+******************************************************/
+bool identicalTrees(BinaryTreeNode<int>* root1, BinaryTreeNode<int>* root2) {
+    // Write your code here.
+     	 
+    if(root1==NULL && root2==NULL){
+      return true;
+    }
+    if (!root1 or !root2) {
+      return false;
+    }
+    if(root1->data==root2->data){
+      return (identicalTrees(root1->left,root2->right)&&identicalTrees(root1->right,root2->left));
+    }
+    return false;
+}
+
+bool isSymmetric(BinaryTreeNode<int>* root)
+{
+    // Write your code here.
+    if(!root)return true; 
+    BinaryTreeNode<int>*r1=root->left,*r2=root->right;
+
+    if(root->left && root->right && r1->data==r2->data){
+        return identicalTrees(r1,r2);
+
+
+    }
+    if (!r1 && !r2) {
+      return true;
+    }
+    return false; 
+}
+Q133
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure.
+
+    template <typename T>
+    class TreeNode {
+        public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+void preorder(TreeNode<int>*&r,TreeNode<int>*root){
+     if(root==NULL)return ;
+     preorder(r,root->right);
+     preorder(r,root->left);
+     root->left=NULL;
+     root->right=r;
+     r=root;
+
+
+}
+TreeNode<int> *flattenBinaryTree(TreeNode<int> *root)
+{
+    // Write your code here.
+    
+    TreeNode<int>*r=NULL;
+    preorder(r,root);
+    return r;
+    
+
+
+}
+Q134
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+ 
+
+typedef TreeNode<int> * t;
+
+void s(t r, t p, t l, bool& q, t& ans){
+
+    if(!r){
+
+        return;
+
+    }
+
+    if(r->data==l->data){
+
+        r->left=p;
+
+        q=1;
+
+        ans=r;
+
+        return;
+
+    }
+
+    s(r->left, r, l, q, ans);
+
+    if(q){
+
+      
+
+            r->left=p;
+
+       return;
+
+    }
+
+    s(r->right, r, l, q, ans);
+
+    if(q){
+
+       if(r->left){
+
+           r->right=r->left;
+
+       }
+
+       else{
+
+           r->right=NULL;
+
+       }
+
+            r->left=p;
+
+            return;
+
+       
+
+    }
+
+}
+
+TreeNode<int> * invertBinaryTree(TreeNode<int> *r, TreeNode<int> *l)
+
+{
+
+    // Write your code here.
+
+    bool q=0;
+
+    t ans=NULL;
+
+    s(r, NULL, l, q, ans);
+
+    return ans; 
+
+}
+Q135
+#include <bits/stdc++.h> 
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode
+    {
+    public :
+        T data;
+        BinaryTreeNode < T > *left;
+        BinaryTreeNode < T > *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+void changeTree(BinaryTreeNode < int > * root) {
+    // Write your code here.
+    if(root==NULL)return;
+    int child=0;
+    if(root->left)child+=root->left->data;
+    if(root->right)child+=root->right->data;
+    if(child<root->data){
+       if(root->left) root->left->data=root->data;
+       else if(root->right) root->right->data=root->data;
+
+    }else{
+        root->data=child;
+    }
+    changeTree(root->left);
+    changeTree(root->right);
+    int tot=0;
+    if(root->left)tot+=root->left->data;
+    if(root->right)tot+=root->right->data;
+    if(root->left || root->right)root->data=tot;
+
+
+}  
+Q136
+#include <bits/stdc++.h> 
+/*
+    ----------------- Binary Tree node class for reference -----------------
+
+    template <typename T>
+    class BinaryTreeNode {
+        public : 
+            T data;
+            BinaryTreeNode<T> *left;
+            BinaryTreeNode<T> *right;
+            BinaryTreeNode<T> *next;
+
+            BinaryTreeNode(T data) {
+                this -> data = data;
+                left = NULL;
+                right = NULL;
+                next = NULL;
+            }
+    };
+*/
+
+void connectNodes(BinaryTreeNode< int > *root) {
+    // Write your code here.
+    BinaryTreeNode<int>*ans=root;
+    if(root==NULL or root->left==NULL&&root->right==NULL)return ;
+
+    queue<BinaryTreeNode<int>*>q;
+    q.push(root);
+    while(!q.empty()){
+        int n=q.size();
+        while(n--){
+            auto p=q.front();
+            q.pop();
+            p->next=n?q.front():NULL;
+            if(p->left)q.push(p->left);
+            if(p->right)q.push(p->right);
+
+        }
+
+    } 
+
+}
+Q137
+#include <bits/stdc++.h> 
+/*
+    Following is the Binary Tree node structure:
+
+    class BinaryTreeNode {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+*/
+
+bool searchInBST(BinaryTreeNode<int> *root, int x) {
+    // Write your code here.
+    if(root==NULL)return false;
+    if(root->data==x)return true;
+    if(root->data>x){
+        searchInBST(root->left,x);
+    }
+    else{
+        searchInBST(root->right,x);
+    }
+    
+}
+Q138
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+        
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+TreeNode<int>*bst(vector<int>&arr,int left,int right){
+    if(left>right)return NULL;
+    int mid=(left+right)>>1;
+    TreeNode<int>*node= new TreeNode<int>(arr[mid]);
+    node->left=bst(arr,left,mid-1);
+    node->right=bst(arr,mid+1,right);
+    return node;
+}
+
+TreeNode<int>* sortedArrToBST(vector<int> &arr, int n)
+{
+    // Write your code here.
+    if(arr.size()==0 )return NULL;
+    return bst(arr,0,arr.size()-1);
+    
+
+}
+Q139
+#include <bits/stdc++.h> 
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    template <typename T>
+
+    class TreeNode{
+    public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+        ~TreeNode() {
+            if (left){
+                delete left;
+            }
+            if (right){
+                delete right;
+            }
+        }
+    };
+
+*************************************************************/
+TreeNode<int>*pre(vector<int>&arr,int left,int right)
+{
+    if(left>right)return NULL;
+    TreeNode<int>*node=new TreeNode<int>(arr[left]);
+    int mid=right;
+    for(int i=left+1;i<=right;i++){
+        if(arr[i]>arr[left]){
+            mid=i-1;
+            break;
+        }
+    }
+    node->left=pre(arr,left+1,mid);
+    node->right=pre(arr,mid+1,right);
+    return node;
+
+    
+}
+
+TreeNode<int>* preOrderTree(vector<int> &preorder){
+    // Write your code here.
+    if(preorder.size()==0)return NULL;
+    return pre(preorder,0,preorder.size()-1);
+    
+}
+Q140
+#include <bits/stdc++.h> 
+/*************************************************************
+ 
+    Following is the Binary Tree node structure
+
+    class BinaryTreeNode 
+    {
+    public : 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+*************************************************************/
+bool bst(BinaryTreeNode<int>*root,int minval,int maxval){
+    if(root==NULL)return true;
+    if(root->data<minval or root->data>maxval){
+        return false;
+    }
+    return bst(root->left,minval,root->data) and bst(root->right,root->data,maxval);
+
+    
+    
+}
+bool validateBST(BinaryTreeNode<int> *root) {
+    // Write your code here
+   
+
+    return bst(root,INT_MIN,INT_MAX);
+
+}
+Q141
+#include <bits/stdc++.h> 
+/************************************************************
+    Following is the Binary Search Tree node structure
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+
+TreeNode<int>* LCAinaBST(TreeNode<int>* root, TreeNode<int>* p, TreeNode<int>* q)
+{
+	// Write your code here
+    if(root==NULL)return NULL;
+    if(root->data>p->data and root->data>q->data)
+    {
+        return LCAinaBST(root->left,p,q);
+    }
+    else if(root->data<p->data and root->data<q->data){
+        return LCAinaBST(root->right,p,q);
+       
+    }
+    else {
+        return root;
+    }
+    
+
+    
+
+
+
+
+
+}
+
+Q142
+#include <bits/stdc++.h> 
+/*************************************************************
+
+    Following is the Binary Tree node structure
+
+    template <typename T>
+
+    class BinaryTreeNode
+    {
+    public :
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~BinaryTreeNode() {
+            if (left)
+            {
+                delete left;
+            }
+            if (right)
+            {
+                delete right;
+            }
+        }
+    };
+
+*************************************************************/
+void solve(BinaryTreeNode<int>*root,int key,int &pre,int &suc)
+{
+       if(root==nullptr)
+        {
+            return;
+        }
+       solve(root->left,key,pre,suc);
+        if(root->data<key)
+        {
+            pre=root->data;
+        }
+        if(root->data>key and suc==-1)
+        {
+            suc=root->data;
+        }
+       solve(root->right,key,pre,suc);
+      
+}
+pair<int,int> predecessorSuccessor(BinaryTreeNode<int>* root, int key)
+{
+    // Write your code here.
+    int pre=-1;
+int suc=-1;
+    if(root==nullptr)
+    {
+      return {-1, -1};
+    }
+    solve(root,key,pre,suc);
+    return {pre,suc};
+
+
+  
+}
+
+
+Q143
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+// int floorInBST(TreeNode<int> * root, int x)
+// {
+//     // Write your code here.
+//     int pre=-1;
+//      while(root!=NULL){
+//         if(root->val==x){
+//             pre=root->val;
+//             return pre;
+
+//         }
+//         else if(root->val>x){
+//             root=root->left;
+//         }
+//         else{
+//             pre=root->val;
+//             root=root->right;
+
+//         }
+
+//     }
+
+    
+//     return pre;
+// }
+void solve(TreeNode<int> *root, int x, int &ans){
+    if(!root){
+        return;
+    }
+
+    if(root->val > x){
+        solve(root->left, x, ans);
+    }
+    else{
+        ans = root->val;
+        solve(root->right, x, ans);
+    }
+}
+
+int floorInBST(TreeNode<int> * root, int x)
+{
+    int ans = -1;
+    solve(root, x, ans);
+    return ans;
+}
+Q144
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure:
+
+    class BinaryTreeNode {
+    public:
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+        
+        BinaryTreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+        
+        ~BinaryTreeNode() {
+            if (left) {
+              delete left;
+            }
+            if (right) {
+              delete right;
+            }
+        }
+    };
+
+************************************************************/
+void solve(BinaryTreeNode<int> *root, int x, int &ans){
+    if(!root){
+        return;
+    }
+
+    if(root->data < x){
+        solve(root->right, x, ans);
+        
+    }
+    else{
+        
+        ans=root->data;
+        solve(root->left, x, ans);
+    }
+}
+int findCeil(BinaryTreeNode<int> *root, int x){
+    // Write your code here.
+     int ans = -1;
+    solve(root, x, ans);
+    return ans;
+}
+Q145
+#include <bits/stdc++.h> 
+/************************************************************
+    Following is the Binary Search Tree node structure
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+void rec(TreeNode<int>* root,int &k,int &ans)
+
+{
+
+    if(!root)
+
+    return ;
+
+    rec(root->right,k,ans);
+
+    k--;
+
+    if(k==0)
+
+    {
+
+        ans=root->data;
+
+        return;
+
+    }
+
+    rec(root->left,k,ans);
+
+}
+
+int KthLargestNumber(TreeNode<int>* root, int k) 
+
+{
+
+    // Write your code here.
+
+    int ans=-1;
+
+    rec(root,k,ans);
+
+    return ans;
+
+}
+Q146
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+int solve(TreeNode<int>*root,int &k){
+    if(root==NULL)return 0;
+    int left=solve(root->left,k);
+    if(left)return left;
+    k--;
+    if(k==0){
+        return root->data;
+    }
+    int right=solve(root->right,k);
+    return right;
+}
+int kthSmallest(TreeNode<int> *root, int k)
+{
+	//	Write the code here.
+    return solve(root,k);
+}
+Q147
+#include <bits/stdc++.h> 
+/**********************************************************
+
+    Following is the Binary Tree Node structure:
+
+    template <typename T>
+    class BinaryTreeNode {
+        public: 
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~BinaryTreeNode() {
+            if (left)
+                delete left;
+            if (right)
+                delete right;
+        }
+    };
+***********************************************************/
+
+class BSTIterator {
+
+stack<BinaryTreeNode<int>*> st;
+
+public:
+
+    BSTIterator(BinaryTreeNode<int>* root,bool flag) {
+
+        while(root)
+
+        {
+
+            st.push(root);
+
+            if(flag)
+
+              root=root->left;
+
+            else
+
+              root=root->right;
+
+        }
+
+    }
+
+    
+
+    int next(bool flag) {
+
+        BinaryTreeNode<int>* temp=st.top();
+
+        st.pop();
+
+        BinaryTreeNode<int>* cur;
+
+        if(flag)
+
+          cur=temp->right;
+
+        else
+
+          cur=temp->left;
+
+        while(cur)
+
+        {
+
+            st.push(cur);
+
+            if(flag)
+
+              cur=cur->left;
+
+            else
+
+              cur=cur->right;
+
+        }
+
+        return temp->data;
+
+    }
+
+    
+
+    bool hasNext() {
+
+        return !st.empty();
+
+    }
+
+};
+
+ 
+
+bool pairSumBst(BinaryTreeNode<int> *root, int k)
+
+{
+
+    // Write your code here
+
+    BSTIterator* l=new BSTIterator(root,true);
+
+    BSTIterator* r=new BSTIterator(root,false);
+
+ 
+
+    int i=l->next(true);
+
+    int j=r->next(false);
+
+    while(i<j)
+
+    {
+
+        if(i+j==k)
+
+            return true;
+
+        if(i+j<k)
+
+            i=l->next(true);
+
+        else
+
+            j=r->next(false);
+
+    }
+
+    return false;
+
+}
+Q148
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+class BSTiterator
+{
+     public: 
+    stack<int> st;
+    void inorder(TreeNode<int>* root)
+    {
+        if(root==NULL)
+        return;
+
+        inorder(root->right);
+        st.push(root->data);
+        inorder(root->left);
+        return;
+    }
+    BSTiterator(TreeNode<int> *root)
+    {
+        // write your code here
+         inorder(root);
+    }
+
+    int next()
+    {
+        // write your code here
+        if(st.empty())
+        return -1;
+        else
+        {
+            int z=st.top();
+            st.pop();
+            return z;
+        } 
+    }
+
+    bool hasNext()
+    {
+        // write your code here
+        if(st.empty())
+        return false;
+        else
+        return true;
+    }
+};
+
+
+/*
+    Your BSTIterator object will be instantiated and called as such:
+    BSTIterator iterator(root);
+    while(iterator.hasNext())
+    {
+       print(iterator.next());
+    }
+*/
+Q149
+#include <bits/stdc++.h> 
+/************************************************************
+
+    Following is the Binary Tree node structure
+    
+    template <typename T>
+    class TreeNode {
+        public :
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this -> data = data;
+            left = NULL;
+            right = NULL;
+        }
+
+        ~TreeNode() {
+            if(left)
+                delete left;
+            if(right)
+                delete right;
+        }
+    };
+
+************************************************************/
+
+#include <bits/stdc++.h>
+
+class NodeValue {
+public:
+  int minNode, maxNode, maxSize;
+
+  NodeValue(int min, int max, int size) {
+    minNode = min;
+    maxNode = max;
+    maxSize = size;
+  }
+};
+
+NodeValue largestBSTSolve(TreeNode<int> *root) {
+  if (!root)
+    return NodeValue(INT_MAX, INT_MIN, 0);
+
+  auto left = largestBSTSolve(root->left);
+  auto right = largestBSTSolve(root->right);
+
+  if (root->data > left.maxNode and root->data < right.minNode) // is a bst
+    return NodeValue(min(left.minNode, root->data),
+                     max(right.maxNode, root->data),
+                     1 + left.maxSize + right.maxSize);
+
+  return NodeValue(INT_MIN, INT_MAX,
+                   max(left.maxSize, right.maxSize)); // not bst
+}
+
+int largestBST(TreeNode<int> *root) {
+    return largestBSTSolve(root).maxSize;
+}
+Q150
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+string serializeTree(TreeNode<int> *root) {
+  if (!root)
+    return "";
+  string str;
+  queue<TreeNode<int> *> q;
+  q.push(root);
+
+  while (!q.empty()) {
+    int n = q.size();
+    while (n--) {
+      auto p = q.front();
+      q.pop();
+
+      if (!p) {
+        str += "#,";
+        continue;
+      }
+
+      str += to_string(p->data) + ",";
+      q.push(p->left);
+      q.push(p->right);
+    }
+  }
+
+  return str;
+}
+
+TreeNode<int> *deserializeTree(string &str) {
+  if (str.empty())
+    return NULL;
+
+  stringstream s(str);
+  string temp;
+
+  getline(s, temp, ',');
+  TreeNode<int> *root = new TreeNode<int>(stoi(temp));
+
+  queue<TreeNode<int> *> q;
+  q.push(root);
+
+  while (!q.empty()) {
+    auto p = q.front();
+    q.pop();
+
+    getline(s, temp, ',');
+    if (temp == "#")
+      p->left = NULL;
+    else {
+      p->left = new TreeNode<int>(stoi(temp));
+      q.push(p->left);
+    }
+
+    getline(s, temp, ',');
+    if (temp == "#")
+      p->right = NULL;
+    else {
+      p->right = new TreeNode<int>(stoi(temp));
+      q.push(p->right);
+    }
+  }
+
+  return root;
+}
+
+
+Q151
+
+
+
+
 
 
 
