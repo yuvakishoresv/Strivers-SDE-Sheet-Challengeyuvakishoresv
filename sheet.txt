@@ -7497,6 +7497,152 @@ graphNode *cloneGraph(graphNode *node)
 }
 Q158
 
+void dfs(int node,vector<int>adj[],vector<int>&vis,vector<int>&ls){
+
+       vis[node]=1;
+
+       ls.push_back(node);
+
+       for(auto it:adj[node]){
+
+           if(!vis[it]){
+
+                dfs(it,adj,vis,ls);
+
+           }
+
+       }
+
+}
+
+vector<vector<int>> depthFirstSearch(int V, int E, vector<vector<int>> &edges)
+
+{
+
+          vector<int>adj[V];
+
+          for(int i=0;i<edges.size();i++){
+
+             int u=edges[i][0];
+
+             int v=edges[i][1];
+
+             adj[u].push_back(v);
+
+             adj[v].push_back(u);
+
+          }
+
+       vector<int>vis(V,0);
+
+       vector<vector<int>>ans;
+
+      for(int i=0;i<V;i++){
+
+           if(!vis[i]){
+
+               vector<int>ls;
+
+               dfs(i,adj,vis,ls);
+
+               ans.push_back(ls);
+
+           }
+
+      }
+
+      return ans;
+
+}
+Q159
+#include <bits/stdc++.h> 
+vector<int> BFS(int vertex, vector<pair<int, int>> edges)
+{
+    // Write your code here
+    vector<int>adj[vertex];
+    for(int i=0;i<edges.size();i++)
+    {
+        int u=edges[i].second;
+        int v=edges[i].first;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+      for(int i = 0; i < vertex; i++){
+
+        sort(adj[i].begin(), adj[i].end());
+
+    }
+    vector<int>ls;
+    
+    int vis[vertex]={0};
+    for(int i=0;i<vertex;i++){
+        
+    queue<int>q;
+    if(vis[i]==0){
+    q.push(i);
+    vis[i]=1;
+    while(!q.empty()){
+        int node=q.front();
+        q.pop();
+        ls.push_back(node);
+        for(auto it:adj[node]){
+            if(vis[it]!=1){
+                q.push(it);
+                vis[it]=1;
+                
+            }
+        }
+    }
+    }
+    }
+    return ls;
+
+}
+Q160
+#include<queue>
+bool detect(int vis[],vector<int>adj[],int src){
+    vis[src]=1;
+    queue<pair<int,int>> q;
+    q.push({src,-1});
+    while(!q.empty()){
+        int node=q.front().first;
+        int parent=q.front().second;
+        q.pop();
+        for(auto it:adj[node]){
+            if(!vis[it]){
+                vis[it]=1;
+                q.push({it,node});
+            }
+            else if(parent!=it){
+                return true;
+            }
+        }
+    }
+    return false;
+
+}
+string cycleDetection (vector<vector<int>>& edges, int n, int m)
+{
+    // Write your code here.
+    string y="Yes",no="No";
+    vector<int>adj[n+1];
+    for(int i=0;i<m;i++){
+        int v=edges[i][0];
+        int u=edges[i][1];
+        adj[v].push_back(u);
+        adj[u].push_back(v);
+    }
+    int vis[n+1]={0};
+    for(int i=1;i<=n;i++){
+        if(!vis[i]){
+            if(detect(vis,adj,i))return y;
+        }
+    }
+    return no;
+
+}
+
+
 
 
 
@@ -7631,7 +7777,439 @@ int getTotalIslands(int** arr, int n, int m)
 }
 
 Q164
+#include<queue>
+bool bfs(int i,vector<int>adj[],vector<int>&vis){
+	queue<pair<int,int>>q;
+        q.push({i, 0});
+        while(!q.empty()){
+		int node=q.front().first;
+		int color=q.front().second;
+		q.pop();
+		for(auto it:adj[node]){
+			if(vis[it]==-1){
+				vis[it]= (!color);
+				q.push({it,!color});
+			}
+			else if(vis[it]!=(!color)){
+				return false;
+		
+			}
+		}
 
+	}
+	return true;
+}
+bool isGraphBirpatite(vector<vector<int>> &edges) {
+	// Write your code here.
+	
+	int n=edges.size(),m=edges[0].size();
+	vector<int>adj[n];
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<m;j++)
+		{
+			if(edges[i][j])
+			{
+				adj[i].push_back(j);
+				adj[j].push_back(i);
+
+			}
+		}
+	}
+	vector<int>vis(n,-1);
+	for(int i=0;i<n;i++)
+	{
+		if(vis[i]==-1){
+			vis[i]=0;
+			if(!bfs(i,adj,vis)){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+Q165
+#include<bits/stdc++.h>
+using namespace std;
+
+void topologicalSort(vector<int> adj[], int S, bool visited[], stack<int> &st) {
+    visited[S] = true;
+    for(int v : adj[S]) {
+        if(!visited[v]) topologicalSort(adj,v,visited,st);
+    }
+    st.push(S);
+}
+
+void DFS(vector<int> adj[], int s, bool visited[], vector<int> &ans) {
+    visited[s] = true;
+    ans.push_back(s);
+    for(int v : adj[s]) {
+        if(!visited[v]) DFS(adj,v,visited,ans);
+    }
+}
+
+vector<vector<int>> stronglyConnectedComponents(int n, vector<vector<int>> &edges)
+{   
+    vector<int>adj1[n],adj2[n];
+    bool visited[n] = {0};
+    stack<int> st;
+    vector<vector<int>> res;
+    
+    for(auto i: edges) 
+        adj1[i[0]].push_back(i[1]);
+    
+    for(int i = 0; i < n; i++)
+        if(!visited[i]) topologicalSort(adj1, i, visited, st);
+
+    for(auto i: edges) 
+        adj2[i[1]].push_back(i[0]); 
+    fill(visited, visited+n, 0);
+
+    while(!st.empty()) {
+        int u = st.top();
+        st.pop();
+        vector<int> ans;
+        if(!visited[u]) {DFS(adj2,u,visited,ans); res.push_back(ans);}
+    }
+    return res;
+}
+Q166
+#include <bits/stdc++.h> 
+vector<int> dijkstra(vector<vector<int>> &vec, int vertices, int edges, int source) {
+    // Write your code here.
+    vector<int> dis(vertices, INT_MAX);
+    vector<pair<int, int>> adjList[vertices];
+    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq; // first min heap
+    pq.push({0, 0});
+    dis[0] = 0;
+    for(auto ele : vec){
+        adjList[ele[0]].push_back({ele[1], ele[2]});
+        adjList[ele[1]].push_back({ele[0], ele[2]});
+    }
+    while(!pq.empty()){
+        pair<int, int> node = pq.top();
+        pq.pop();
+        vector<pair<int, int>> nodes = adjList[node.second];
+        for(auto ele: nodes){
+            int ndis = node.first + ele.second;
+            if(ndis < dis[ele.first]){
+                dis[ele.first] = ndis;
+                pq.push({ndis, ele.first});
+            }
+        }
+        
+    }
+    
+    
+    return dis;
+    
+    
+}
+
+Q167
+
+#include <bits/stdc++.h> 
+int bellmonFord(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+      
+           vector<int>dist(n+1,1e9);
+           dist[src]=0;
+         for(int i=0;i<n-1;++i){
+             for(auto it:edges){
+             int u=it[0];
+             int v=it[1];
+             int wt=it[2];
+        if(dist[u] !=1e9 && dist[u]+wt<dist[v]){
+            dist[v]=dist[u]+wt;
+        }
+         }
+         }
+      return dist[dest];
+       
+}
+Q168
+int floydWarshall(int n, int m, int src, int dest, vector<vector<int>> &edges) {
+    // Write your code here.
+    vector<vector<int>>mat(n,vector<int>(n,1e9));
+    for(int i=0;i<n;i++)
+    {
+        mat[i][i]=0;
+
+    }
+    for(auto i:edges){
+        int u=i[0]-1,v=i[1]-1,wt=i[2];
+        mat[u][v]=wt;
+    }
+    for(int k=0;k<n;k++)
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++){
+                if(mat[i][k]!=1e9 and mat[k][j]!=1e9)
+                {
+                    mat[i][j]=min(mat[i][j],mat[i][k]+mat[k][j]);
+                }
+            }
+        }
+    }
+    return mat[src-1][dest-1];
+
+}
+Q169
+#include <bits/stdc++.h> 
+vector<pair<pair<int, int>, int>> calculatePrimsMST(int n, int m, vector<pair<pair<int, int>, int>> &g)
+{
+    // Write your code here.
+    
+    priority_queue< pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+
+    unordered_map<int, list<pair<int, int>>> adj;
+
+    for(int i =0;i<m;i++){
+
+      int u = g[i].first.first;
+
+      int v = g[i].first.second;
+
+      int w = g[i].second;
+
+ 
+
+      adj[u].push_back({v,w});
+
+      adj[v].push_back({u,w});
+
+    }
+
+ 
+
+    vector<int> key(n+1, INT_MAX);
+
+    vector<int> parent(n+1, -1);
+
+    vector<bool> mst(n+1, false);
+
+ 
+
+    key[1] = 0;
+
+    parent[1] = -1;
+
+    pq.push({0,1});
+
+ 
+
+    
+
+    //for(int i= 1;i<n;i++ ){
+
+      while(!pq.empty()){
+
+        int mini = INT_MAX;
+
+        int u;
+
+        /*for(int v =1;v<=n;v++){
+
+            if(mst[v] == false &&  key[v] < mini){
+
+                mini = key[v];
+
+                u =v;
+
+            }
+
+        }*/
+
+        u = pq.top().second;
+
+        mini = pq.top().first;
+
+        pq.pop();
+
+    
+
+    if(mst[u]){
+
+      continue;
+
+    }
+
+    mst[u] = true;
+
+ 
+
+    for(auto n: adj[u]){
+
+        int v = n.first;
+
+        int w = n.second;
+
+ 
+
+        if (mst[v] == false && w < key[v]) {
+
+          key[v] = w;
+
+          pq.push({w,v});
+
+          parent[v] = u;
+
+        }
+
+    }
+
+    }
+
+ 
+
+    vector<pair<pair<int, int>, int>> result;
+
+    for(int i =2;i<=n;i++){
+
+      result.push_back({{parent[i], i}, key[i]});
+
+    }
+
+    return result;
+}
+Q170
+
+#include <bits/stdc++.h> 
+class DisjointSet{
+private:
+      vector<int>rank,size,parent;
+public:
+  DisjointSet(int n){
+	   rank.resize(n+1,0);
+       size.resize(n+1,1);
+	   parent.resize(n+1);
+	   for(int i=0;i<=n;++i){
+		   parent[i]=i;
+	   }
+  }
+int findPar(int node){
+	  if(node==parent[node]){
+		  return node;
+	  }
+	return parent[node]=findPar(parent[node]);
+}
+ void UnionByRank(int u ,int v){
+	  int ulp_u=findPar(u);
+	  int ulp_v=findPar(v);
+	if(ulp_u==ulp_v){
+		return ;
+	}
+	if(rank[ulp_u]>rank[ulp_v]){
+		parent[ulp_v]=ulp_u;
+	}else if(rank[ulp_u]<rank[ulp_v]){
+		parent[ulp_u]=ulp_v;
+	}else{
+		parent[ulp_u]=ulp_v;
+		rank[ulp_v]++;
+	}
+ }
+void UnionBySize(int u ,int v){
+	int ulp_u=findPar(u);
+	int ulp_v=findPar(v);
+	if(ulp_u==ulp_v){
+		return ;
+	}
+	if(size[ulp_v]<size[ulp_u]){
+		parent[ulp_v]=ulp_u;
+		size[ulp_v]+=size[ulp_u];
+	}else{
+		parent[ulp_u]=ulp_v;
+		size[ulp_u]+=size[ulp_u];
+	}
+  }
+};
+bool compare(vector<int>const &a , vector<int> const &b){
+	  return a[2]<b[2];
+}
+int kruskalMST(int n, int m, vector<vector<int>> &graph) {
+	    // vector<pair<int,pair<int,int>>>edges;
+	    // for(auto it:graph){
+		// 	int u=it[0];
+		// 	int v=it[1];
+		// 	int wt=it[2];
+		// edges.push_back({wt,{u,v}});
+		// }
+		// sort(edges.begin(),edges.end());
+		sort(graph.begin(),graph.end(),compare);
+		int mstSum=0;
+		DisjointSet ds(n);
+	 for(auto it:graph){
+		 int wt=it[2];
+		 int u=it[0];
+		 int v=it[1];
+	if(ds.findPar(u) != ds.findPar(v)){
+		 mstSum+=wt;
+		 ds.UnionByRank(u,v);
+	}
+	 }
+	 return mstSum;
+}
+Q171
+#include <bits/stdc++.h> 
+int maximumProduct(vector<int> &nums, int n)
+{
+	// Write your code here
+	 int prod1 = nums[0],prod2 = nums[0],result = nums[0];
+    
+    for(int i=1;i<n;i++) {
+        int temp = max({nums[i],prod1*nums[i],prod2*nums[i]});
+        prod2 = min({nums[i],prod1*nums[i],prod2*nums[i]});
+        prod1 = temp;
+        
+        result = max(result,prod1);
+    }
+    
+    return result;
+}
+
+Q172
+#include<bits/stdc++.h>
+using namespace std;
+/*int func(int arr[],int n,vector<vector<int>>&dp,int ind,int prev_ind)
+{
+    if(ind==n)return 0;
+    if (dp[ind][prev_ind+1] != -1) {
+      return dp[ind][prev_ind + 1];
+    }
+    int notake=0+func(arr,n,dp,ind+1,prev_ind);
+    int take=0;
+    if(arr[ind]>arr[prev_ind] || prev_ind==-1)
+    {
+        take=1+func(arr,n,dp,ind+1,ind);
+    }
+    return dp[ind][prev_ind+1]=max(take,notake);
+}
+int longestIncreasingSubsequence(int arr[], int n)
+{
+    // Write Your Code here
+    vector<vector<int>>dp(n,vector<int>(n+1,-1));
+    return func(arr,n,dp,0,-1);
+}*/
+//binary search
+int longestIncreasingSubsequence(int arr[], int n){
+      vector<int>temp;
+    temp.push_back(arr[0]);
+    int len=1;
+    for(int i=1;i<n;i++){
+        if(arr[i]>temp.back()){
+            temp.push_back(arr[i]);
+            len++;
+        }
+        else{
+            int ind =lower_bound(temp.begin(),temp.end(),arr[i])-temp.begin();
+            temp[ind]=arr[i];
+        }
+    }
+    return len;
+
+}
+
+Q173
 
 
 
