@@ -8210,6 +8210,588 @@ int longestIncreasingSubsequence(int arr[], int n){
 }
 
 Q173
+#include<bits/stdc++.h>
+
+int solve(string &s, string &t)
+
+{
+
+    int n1=s.size(),n2=t.size();
+
+    vector<int>curr(n2+1,0),next(n2+1,0);
+
+    for(int i=n1;i>=0;i--)
+
+    {
+
+        for(int j=n2-1;j>=0;j--)
+
+        {
+
+            int ans=0;
+
+            if(s[i]==t[j])
+
+            {
+
+                ans=1+next[j+1];
+
+            }
+
+            else
+
+            {
+
+                ans=max(next[j],curr[j+1]);
+
+            }
+
+            curr[j]=ans;
+
+        }
+
+        next=curr;
+
+    }
+
+    return next[0];
+
+}
+
+int lcs(string s, string t)
+
+{
+
+    //Write your code here
+
+    return solve(s,t);
+
+}
+
+
+Q174
+#include<bits/stdc++.h>
+using namespace std;
+int maxProfit(vector<int> &val, vector<int> &wt, int n, int w)
+{
+	// Write your code here
+	vector<int>dp(w+1,0);
+	for(int i=wt[0];i<=w;i++)dp[i]=val[0];
+
+	for(int ind=1;ind<n;ind++)
+	{
+		for(int cap=w;cap>=0;cap--)
+		{
+			int notake=0+dp[cap];
+			int take=INT_MIN;
+			if(wt[ind]<=cap){
+				take=val[ind]+dp[cap-wt[ind]];
+			}
+			dp[cap]=max(take,notake);
+		}
+	}
+	return dp[w];
+	
+	
+}
+Q175
+int solve(int i,int j,string s1,string s2){
+
+if(j==0){ 
+
+    return i;
+
+}
+
+if(i==0) return j;
+
+ 
+
+if(s1[i-1]==s2[j-1]){
+
+    return solve(i-1,j-1,s1,s2);
+
+}
+else{
+
+    return min((1+solve(i-1,j,s1,s2)),min( (1+solve(i-1,j-1,s1,s2)),
+
+    (1+solve(i,j-1,s1,s2))));
+
+}
+
+}
+
+ 
+
+int editDistance(string str1, string str2)
+
+{
+
+    string s1=str1;
+
+    string s2=str2;
+
+    int n1=str1.size();
+
+    int n2=str2.size();
+
+ 
+
+vector<int>prev(n2+1);
+
+vector<int>curr(n2+1);
+
+ 
+
+    
+
+ for (int i=0;i<=n2;i++){
+
+       prev[i]=i;    }
+
+ 
+
+for (int i=1;i<=n1;i++){
+
+    curr[0]=i;
+
+    for (int j=1;j<=n2;j++){
+
+if(s1[i-1]==s2[j-1]){
+
+    curr[j]=prev[j-1];
+
+}
+
+else{
+
+    curr[j]= min((1+prev[j]),min( (1+prev[j-1]),
+
+    (1+curr[j-1])));
+
+}
+
+ 
+
+    }
+
+    prev=curr;
+
+}
+
+return prev[n2];
+
+ 
+
+}
+
+Q176
+#include <bits/stdc++.h> 
+int f(int ind,int pre,vector<int> &arr,vector<vector<int>> &dp){
+    if(ind==arr.size())
+	  return 0;
+	if(dp[ind][pre+1]!=-1)
+	  return dp[ind][pre+1];
+	int notTake=f(ind+1,pre,arr,dp);
+	int take=INT_MIN;
+	if(pre==-1 || arr[pre]<arr[ind]){
+		take=arr[ind]+f(ind+1,ind,arr,dp);
+	}
+	return dp[ind][pre+1]=max(take,notTake);
+}
+int maxIncreasingDumbbellsSum(vector<int> &rack, int n)
+{
+	// Write your code here
+	vector<vector<int>> dp(n,vector<int>(n+1,-1));
+	return f(0,-1,rack,dp);
+}
+Q177
+#include <bits/stdc++.h>
+// int func(vector<int>&arr,int i,int j){
+//     if (i == j) {
+//       return 0;
+//     }
+//     int mini=INT_MAX;
+//     for(int k=i;k<j;k++){
+//         int ans=func(arr,i,k)+func(arr,k+1,j)+(arr[i-1]*arr[k]*arr[j]);
+//         mini=min(mini,ans);
+//     }
+//     return mini;
+    
+// } 
+
+// int matrixMultiplication(vector<int> &arr, int N)
+// {
+//     // Write your code here.
+//     int i=1,j=N-1;
+//     return func(arr,i,j);
+// }
+int func(vector<int>&arr,int i,int j,vector<vector<int>>&dp){
+    if(i==j)return 0;
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    int mini=INT_MAX;
+    for(int k=i;k<j;k++){
+        if(dp[i][k]==-1){
+            dp[i][k]=func(arr,i,k,dp);
+        }
+        if(dp[k+1][j]==-1){
+            dp[k+1][j]=func(arr,k+1,j,dp);
+        }
+        int ans=dp[i][k]+dp[k+1][j]+(arr[i-1]*arr[k]*arr[j]);
+        mini=min(ans,mini);
+    }
+    return mini;
+
+}
+int matrixMultiplication(vector<int> &arr, int n){
+    vector<vector<int>>dp(n,vector<int>(n,-1));
+    int i=1,j=n-1;
+    return func(arr,i,j,dp);
+}
+Q178
+#include <bits/stdc++.h> 
+/*int func(vector<vector<int>>&grid,int n,int m,int sum,int i,int j,int maxi)
+{
+    if(i==n &&j==m){
+        maxi=min(maxi,sum);
+        return maxi;
+
+        
+    }
+    if(i<n){
+        func(grid,n,m,sum+grid[i][j],i+1,j,maxi);
+
+
+    }
+    if(j<m){
+        func(grid,n,m,sum+grid[i][j],i,j+1,maxi);
+
+    }
+
+}
+int minSumPath(vector<vector<int>> &grid) {
+    // Write your code here.
+    int n=grid.size(),m=grid[0].size(),sum=0,maxi=INT_MAX;
+    if(n==1)return grid[0][m-1];
+    if(m==1)return grid[n-1][0];
+    return func(grid,n,m,sum,0,0,maxi);
+
+}
+*/
+int func(vector<vector<int>>&grid,int n,int m,int i,int j,vector<vector<int>>&dp){
+    if(i==n-1 && j==m-1)return grid[n-1][m-1];
+    if(i>n-1 or j>m-1)return 1e9;
+
+    if(dp[i][j]!=-1)return dp[i][j];
+    return dp[i][j]=min(grid[i][j]+func(grid,n,m,i+1,j,dp),grid[i][j]+func(grid,n,m,i,j+1,dp));
+}
+
+
+
+int minSumPath(vector<vector<int>> &grid){
+    int n=grid.size(),m=grid[0].size();
+    vector<vector<int>>dp(n,vector<int>(m,-1));
+    if(n==1)return grid[0][m-1];
+    if(m==1)return grid[n-1][0];
+    func(grid,n,m,0,0,dp);
+    return dp[0][0];
+
+
+}
+
+Q179
+#include<bits/stdc++.h>
+using namespace std;
+long countWaysToMakeChange(int *deno, int n, int val) {
+  // Write your code here
+  vector<long> prev(val + 1, 0), cur(val + 1, 0);
+
+  for (int i = 0; i <= val; i++){
+      prev[i]= (i%deno[0]==0);
+}
+
+    for(int i=1;i<n;i++)
+    {
+        for(int j=0;j<=val;j++)
+        {
+            long notake=prev[j];
+            long take=0;
+            if(deno[i]<=j)
+            {
+                take=cur[j-deno[i]];
+            }
+            cur[j]=take+notake;
+        }
+        prev=cur;
+    }
+    return prev[val];
+   
+
+
+}
+Q180
+#include <bits/stdc++.h> 
+/*bool func(int n,int k,vector<int>&arr,int sum,int ind)
+{
+    if(sum>k)return false;
+    if(ind>=n)return false;
+    if(sum+arr[ind]==k)
+    {
+        return true;
+    }
+    return (func(n,k,arr,sum+arr[ind],ind+1)||func(n,k,arr,sum,ind+1));
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    // Write your code here.
+    int sum=0;
+    return func(n,k,arr,sum,0);
+}*/
+/*bool subsetSumToK(int n, int k, vector<int> &arr) {
+    vector<vector<bool>> dp(n, vector<bool>(k+1, 0 ));
+
+    for(int i=0; i<n; i++) dp[i][0]=true;
+
+    dp[0][arr[0]]=true;
+
+    for(int ind=1; ind<n; ind++){
+
+        for(int target=1; target<=k; target++){
+
+                bool notTake=dp[ind-1][target];
+
+                bool take=false;
+
+                if(arr[ind]<=target){
+
+                take=dp[ind-1][target-arr[ind]];
+
+                }
+
+                dp[ind][target]=notTake | take;
+
+        }
+
+    }
+
+    return dp[n-1][k];*/
+    bool subsetSumToK(int n, int k, vector<int> &arr){
+        vector<bool>prev(k+1,0);
+        prev[0]=true;
+        prev[arr[0]]=true;
+         
+        for(int i=1;i<n;i++){
+           
+            for(int j=k;j>=1;j--)
+            {
+            bool notake=prev[j];
+            bool take=0;
+            if (arr[i] <= j) {
+              take = prev[j - arr[i]];
+            }
+            prev[j] = take ||notake;
+            }
+            
+        
+        }
+        return prev[k];
+    
+}
+
+Q181
+#include<bits/stdc++.h>
+using namespace std;
+
+int cutRod(vector<int> &price, int n)
+{
+	// Write your code here.
+	vector<int>dp(n+1,0);
+	for(int i=0;i<=n;i++){
+		dp[i]=i*price[0];
+	}
+	for(int ind=1;ind<n;ind++)
+	{
+		for(int len=0;len<=n;len++)
+		{
+			int notake=0+dp[len];
+			int take=INT_MIN;
+			int rodlength=ind+1;
+			if(rodlength<=len)
+			{
+				take=price[ind]+dp[len-rodlength];
+			}
+			dp[len]=max(take,notake);
+		}
+	}
+
+	return dp[n];
+
+
+
+
+
+}
+Q182
+#include<bits/stdc++.h>
+
+int dp[104][10004];
+/* int solve(int e, int f) {
+    if(f == 1 or f == 0)
+        return f;
+    
+    if(e == 1)
+        return f; // if onyl one egg is left then u have to check every floor;
+
+    if(dp[e][f] != -1)
+        return dp[e][f];
+
+    int low = 1, high = f, ans = 1e9;
+    while(low <= high) {
+        int mid = (low + high) >> 1;
+        int down = solve(e - 1, mid - 1); // egg break at mid, floors left is mid - 1
+        int up = solve(e, f - mid); // no egg break, floors left are no.of floors - mid
+
+        ans = min(ans, 1 + max(down, up));
+        if(down < up)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+
+    return dp[e][f] = ans;
+}
+
+int cutLogs(int k, int n)
+{
+    memset(dp, -1, sizeof(dp));
+    return solve(k, n); // k -> eggs, n -> floor
+} */
+
+
+/* int cutLogs(int k, int n) {
+    memset(dp, 0, sizeof(dp));
+    for(int e = 1; e <= k; e++)
+        dp[e][1] = 1;
+
+    for(int f = 1; f <= n; f++)
+        dp[1][f] = f;
+
+    for(int e = 2; e <= k; e++) {
+        for(int f = 2; f <= n; f++) {
+            int low = 1, high = f, ans = INT_MAX;
+            while(low <= high) {
+                int mid = (low + high) >> 1;
+                int down = dp[e - 1][mid - 1];
+                int up = dp[e][f - mid];
+
+                ans = min(ans, 1 + max(down, up));
+                if(up > down)
+                    low = mid + 1;
+                else 
+                    high = mid - 1;
+            }
+
+            dp[e][f] = ans;
+        }
+    }
+    
+    return dp[k][n];
+} */
+
+int cutLogs(int k, int n) {
+    vector<int> prev(n + 1, 0), curr(n + 1, 0);
+    prev[1] = 1;
+
+    for(int f = 1; f <= n; f++)
+        prev[f] = curr[f] = f;
+
+    for(int e = 2; e <= k; e++) {
+        for(int f = 2; f <= n; f++) {
+            int low = 1, high = f, ans = INT_MAX;
+            while(low <= high) {
+                int mid = (low + high) >> 1;
+                int down = prev[mid - 1];
+                int up = curr[f - mid];
+
+                ans = min(ans, 1 + max(down, up));
+                if(up > down)
+                    low = mid + 1;
+                else 
+                    high = mid - 1;
+            }
+
+            curr[f] = ans;
+        }
+        prev = curr;
+    }
+    
+    return prev[n];
+}
+Q183
+#include <bits/stdc++.h> 
+bool func(int ind, vector<string> &arr, int n, string &target,
+           vector<int> &dp){
+               if(ind==n)return true;
+               if(dp[ind]!=-1){
+                   return dp[ind];
+               }
+               for(auto word:arr){
+                   if(target.substr(ind,word.size())==word and func(ind+word.size(),arr,n,target,dp))
+                   {
+                       return dp[ind]=true;
+                   }
+
+               }
+                                  return dp[ind]=false;
+
+
+           }
+bool wordBreak(vector < string > & arr, int n, string & target) {
+    // Write your code here.
+    vector<int>dp(target.size()+1,-1);
+    return func(0,arr,target.size(),target,dp);
+}
+Q184
+#include <bits/stdc++.h> 
+bool palindrome(string str,int i,int j){
+    while(i<=j){
+        if(str[i]!=str[j]){
+            return false;
+        }
+        i++;j--;
+    }
+    return true;
+}
+int func(string str,int i,int n,vector<int>&dp){
+  if (i == n) {
+    return 0;
+  }
+  if(dp[i]!=0){
+      return dp[i];
+  }
+    int cuts=INT_MAX;
+    for(int k=i;k<n;k++){
+        if(palindrome(str,i,k)){
+            int ans=1+func(str,k+1,n,dp);
+
+             cuts=min(ans,cuts);
+
+        }
+        
+
+    }
+    return dp[i]=cuts;
+
+}
+int palindromePartitioning(string str) {
+    // Write your code here
+    int i=0,j=str.size();
+    vector<int>dp(j,0);
+    return func(str,i,j,dp)-1;
+}
+
 
 
 
